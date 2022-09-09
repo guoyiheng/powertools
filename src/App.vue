@@ -1,10 +1,10 @@
 <template>
-    <Navbar />
-    <RouterView v-slot="{ Component }">
-        <Suspense>
-    <component :is="Component" />
-        </Suspense>
-    </RouterView>
+  <Navbar />
+  <RouterView v-slot="{ Component }">
+    <Suspense>
+      <component :is="Component" />
+    </Suspense>
+  </RouterView>
 </template>
 
 <style>
