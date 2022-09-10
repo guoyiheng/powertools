@@ -19,7 +19,7 @@
             "@types/node"
         ],
         "paths": {
-            "@/*": ["src/*"]
+            "~/*": ["src/*"]
         }
     },
     "vueCompilerOptions": {

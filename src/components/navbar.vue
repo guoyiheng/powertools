@@ -1,20 +1,13 @@
 <template>
-  <nav fixed bg-dark w-screen top-0 inset-x-0 shadow-lg>
-    <div container mx-auto py-4>
-      <div flex justify-between>
-        <RouterLink to="/" font-bold text-white space-x-2>
-          <i-heroicons-solid-home w-5 h-5 />
-          <span align-middle>Home</span>
-        </RouterLink>
-
-        <div space-x-8>
-          <template v-for="route in $router.getRoutes()">
-            <RouterLink v-if="route.name !== 'index'" :key="route.path" :to="route.path" text-white underline capitalize>
-              {{ route.name }}
-            </RouterLink>
-          </template>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <n-tabs type="line">
+    <n-tab name="幸福">
+      寂寞围绕着电视
+    </n-tab>
+    <n-tab name="的">
+      垂死坚持
+    </n-tab>
+    <n-tab name="旁边">
+      在两点半消失
+    </n-tab>
+  </n-tabs>
 </template>

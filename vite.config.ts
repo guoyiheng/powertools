@@ -11,7 +11,7 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '~': resolve(__dirname, './src'),
     },
   },
   plugins: [
