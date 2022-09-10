@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { DirResolverHelper, dirResolver } from 'vite-auto-import-resolvers'
 import UnoCSS from 'unocss/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
   resolve: {
@@ -29,6 +30,7 @@ export default defineConfig({
     Components({
       extensions: ['vue'],
       dirs: ['src/components'],
+      resolvers: [NaiveUiResolver()],
       deep: false,
     }),
     DirResolverHelper(),
@@ -41,6 +43,14 @@ export default defineConfig({
           '@tauri-apps/api/app': ['getName', 'getVersion', 'getTauriVersion'],
           '@tauri-apps/api/shell': ['Command'],
           '@tauri-apps/api/notification': ['sendNotification', 'requestPermission', 'isPermissionGranted'],
+        },
+        {
+          'naive-ui': [
+            'useDialog',
+            'useMessage',
+            'useNotification',
+            'useLoadingBar',
+          ],
         },
       ],
       resolvers: [dirResolver()],

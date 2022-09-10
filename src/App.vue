@@ -9,12 +9,12 @@
 
 <style>
 html {
--webkit-tap-highlight-color: transparent;
-	scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
 }
 
 img {
-	-webkit-user-drag: none;
-	@apply select-none;
+  -webkit-user-drag: none;
+  @apply select-none;
 }
 </style>

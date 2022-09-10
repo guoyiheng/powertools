@@ -6,8 +6,8 @@
     "build": {
         "distDir": "../dist",
         "devPath": "http://localhost:5173",
-        "beforeDevCommand": "npm run dev",
-        "beforeBuildCommand": "npm run build"
+        "beforeDevCommand": "npm run start",
+        "beforeBuildCommand": "npm run dist"
     },
     "tauri": {
         "systemTray": {
