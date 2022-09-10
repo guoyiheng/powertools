@@ -1,11 +1,11 @@
 <template>
-  <div v-cloak>
-    <Navbar />
-    <RouterView v-slot="{ Component }">
-      <Suspense>
+  <div v-cloak p="x-4 y-4" text="gray-700 dark:gray-200">
+    <!-- <Navbar /> -->
+    <router-view v-slot="{ Component }">
+      <keep-alive>
         <component :is="Component" />
-      </Suspense>
-    </RouterView>
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
