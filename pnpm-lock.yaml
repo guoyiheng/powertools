@@ -2,8 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^0.19.4
-  '@iconify-json/heroicons-outline': ^1.1.2
-  '@iconify-json/heroicons-solid': ^1.1.2
+  '@iconify-json/carbon': ^1.1.7
   '@tauri-apps/api': ^1.0.2
   '@tauri-apps/cli': ^1.0.4
   '@types/node': ^18.0.6
@@ -31,8 +30,7 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config': 0.19.4_itqs5654cmlnjraw6gjzqacppi
-  '@iconify-json/heroicons-outline': 1.1.4
-  '@iconify-json/heroicons-solid': 1.1.5
+  '@iconify-json/carbon': 1.1.7
   '@tauri-apps/cli': 1.0.5
   '@types/node': 18.7.16
   '@unocss/reset': 0.45.18
@@ -279,14 +277,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/heroicons-outline/1.1.4:
-    resolution: {integrity: sha512-H59TKT8dK6SDonC0NXeT021Erhq7n0apg+41cUDFgv3Zps4x+2t2Sd3QWI5cs6sW/kpOlY8DTP0xUtF5T/bp4w==}
-    dependencies:
-      '@iconify/types': 2.0.0
-    dev: true
-
-  /@iconify-json/heroicons-solid/1.1.5:
-    resolution: {integrity: sha512-IYcLU3A8eUQFLQ5RdrrqZ/hFNVxctnCgxKU7xwH0Vc8948BGB0ZPFuFa/2ScPmE1AseWXLzhycwI8IDEl3MPmQ==}
+  /@iconify-json/carbon/1.1.7:
+    resolution: {integrity: sha512-QULSpNWKaX4auIbjITDynfALdJYvOOy/xZb+aLOqCgvpBcmbz5tbqvow4r25FWtVsi4FHVpNQ8vyJZXsD1Hlxg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

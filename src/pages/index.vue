@@ -2,14 +2,12 @@
 <script setup lang="ts">
 import fs from 'fs'
 import { parseTime } from '@/utils/index'
-import { chooseType, newPath, oldPath } from '@/composables'
+import { chooseType, costomizeType, newPath, oldPath } from '@/composables'
 
 // 表单数据
 const oldPathError = ref('')
 const newPathError = ref('')
 watch(oldPath, () => {
-  console.log('===')
-
   oldPathError.value = ''
 })
 watch(newPath, () => {
@@ -17,16 +15,15 @@ watch(newPath, () => {
 })
 
 // file type
-const costomizeType = ref('')
 const fileCount = ref(0)
 const isMoving = ref(false)
 const isFinish = ref(false)
 
 const allTypeOption = [
-  { value: 'video', label: '视频' },
-  { value: 'image', label: '图片' },
-  { value: 'audio', label: '音频' },
-  { value: 'zip', label: '压缩文件' },
+  { value: 'video', label: '视频', icon: 'i-carbon:video' },
+  { value: 'image', label: '图片', icon: 'i-carbon:image' },
+  { value: 'audio', label: '音频', icon: 'i-carbon:music' },
+  { value: 'zip', label: '压缩文件', icon: 'i-carbon:thumbnail-2' },
 ]
 const allTypes = new Map([
   ['video', ['.mp4', '.avi', '.mkv', '.rmvb', '.rm', '.mov', '.wmv', '.flv', '.3gp', '.webm', '.ts', '.m4v']],
@@ -86,13 +83,8 @@ function makeDir(name: string) {
 
 // 确定文件的格式是否是所选的
 function fileWithChooseType(name: string, types: string[]) {
-  let meetConditions = false
-  for (let index = 0; index < types.length; index++) {
-    const suffix = types[index].key
-    if (name.endsWith(suffix))
-      meetConditions = true
-  }
-  return meetConditions
+  const findItem = types.find(type => name.endsWith(type))
+  return !!findItem
 }
 
 // 主要函数-处理文件移动
@@ -113,8 +105,9 @@ function moveFile(finalPath: string, oldPath: string, finalChooseType: string[])
 
         if (fileWithChooseType(dir.name, finalChooseType)) {
           try {
-            fs.renameSync(oldName, newName)
+            // TODO 增加逻辑
             // 移动文件
+            fs.renameSync(oldName, newName)
             fileCount.value += 1
           }
           catch (error) {
@@ -137,7 +130,10 @@ function moveFile(finalPath: string, oldPath: string, finalChooseType: string[])
     <div flex="~ col gap-1">
       <n-input-group w-400px>
         <n-input-group-label>
-          源目录
+          <div flex items-center>
+            <div i-carbon:choose-item rotate-90 mr-2 />
+            源目录
+          </div>
         </n-input-group-label>
         <n-input v-model:value="oldPath" placeholder="请输入源目录" />
       </n-input-group>
@@ -148,7 +144,10 @@ function moveFile(finalPath: string, oldPath: string, finalChooseType: string[])
     <div flex="~ col gap-1">
       <n-input-group w-400px>
         <n-input-group-label>
-          目的目录
+          <div flex items-center>
+            <div i-carbon:choose-item mr-2 />
+            目的目录
+          </div>
         </n-input-group-label>
         <n-input v-model:value="newPath" placeholder="请输入目的目录" />
       </n-input-group>
@@ -161,12 +160,19 @@ function moveFile(finalPath: string, oldPath: string, finalChooseType: string[])
         <div flex="~ col gap-4">
           <n-checkbox-group v-model:value="chooseType">
             <n-space item-style="display: flex;">
-              <n-checkbox v-for="item in allTypeOption" :key="item.value" :value="item.value" :label="item.label" />
+              <n-checkbox v-for="item in allTypeOption" :key="item.value" :value="item.value">
+                <div flex items-center>
+                  <div :class="item.icon" mr-1 />{{ item.label }}
+                </div>
+              </n-checkbox>
             </n-space>
           </n-checkbox-group>
           <n-input-group w-400px>
             <n-input-group-label>
-              自定义后缀资源
+              <div flex items-center>
+                <div i-carbon:type-pattern mr-2 />
+                自定义后缀资源
+              </div>
             </n-input-group-label>
             <n-input v-model:value="costomizeType" placeholder="多个后缀用逗号分割" />
           </n-input-group>
@@ -176,12 +182,18 @@ function moveFile(finalPath: string, oldPath: string, finalChooseType: string[])
 
     <div>
       <n-button type="primary" :loading="isMoving" @click="handleMove">
-        开始移动文件
+        <div flex items-center>
+          <div i-carbon:movement mr-2 />
+          开始移动文件
+        </div>
       </n-button>
     </div>
     <div>
       <n-alert v-show="isFinish" mt4 title="移动完成" type="success">
-        <p>一共移动了{{ fileCount }}个文件</p>
+        <div flex items-center>
+          <div i-carbon:calculation mr-2 />
+          <p>一共移动了{{ fileCount }}个文件</p>
+        </div>
       </n-alert>
     </div>
   </div>
