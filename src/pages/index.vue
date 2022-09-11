@@ -1,8 +1,10 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
-import fs from 'fs'
 import { parseTime } from '@/utils/index'
 import { chooseType, costomizeType, newPath, oldPath } from '@/composables'
+
+// 区分mac和win
+const link = ref('\\')
 
 // 表单数据
 const oldPathError = ref('')
@@ -35,7 +37,10 @@ const allTypes = new Map([
 /**
  * 提交按钮
  */
-function handleMove() {
+async function handleMove() {
+  const osType = await type()
+  link.value = osType === 'Darwin' ? '/' : '\\'
+
   // 重置错误信息
   oldPathError.value = ''
   oldPathError.value = ''
@@ -59,7 +64,8 @@ function handleMove() {
   // 新建文件夹,根据当天命名
   const currentTime = new Date()
   const folderName = parseTime(currentTime, '{y}_{m}_{d}_{h}_{i}_{s}')
-  const finalPath = `${newPath}\\${folderName}`
+
+  const finalPath = `${newPath.value}${link.value}${folderName}`
   console.log('源目录:', oldPath.value)
   console.log('目的目录:', finalPath)
   console.log('finalChooseType:', finalChooseType)
@@ -71,9 +77,9 @@ function handleMove() {
 }
 
 // 新建文件夹
-function makeDir(name: string) {
+async function makeDir(name: string) {
   try {
-    fs.mkdirSync(name)
+    await createDir(name)
   }
   catch (error) {
     console.log(error)
@@ -88,32 +94,46 @@ function fileWithChooseType(name: string, types: string[]) {
 }
 
 // 主要函数-处理文件移动
-function moveFile(finalPath: string, oldPath: string, finalChooseType: string[]) {
+async function moveFile(finalPath: string, oldPath: string, finalChooseType: string[]) {
   try {
-    const downloadDirArr = fs.readdirSync(oldPath, { withFileTypes: true })
-    for (let index = 0; index < downloadDirArr.length; index++) {
-      const dir = downloadDirArr[index]
-      if (dir.isDirectory()) {
-        const deepPath = `${oldPath}\\${dir.name}`
-        // 递归查询
-        moveFile(finalPath, deepPath, finalChooseType)
-      }
-      else {
-        // 找到符合所选格式文件
-        const oldName = `${oldPath}\\${dir.name}`
-        const newName = `${finalPath}\\${dir.name}`
+    // const downloadDirArr = fs.readdirSync(oldPath, { withFileTypes: true })
+    const downloadDirArr = await readDir(oldPath, { recursive: false })
+    for (const dir of downloadDirArr) {
+      // if (dir.children) {
+      //   const deepPath = `${oldPath}${link.value}${dir.name}`
+      //   console.log('deepPath', deepPath)
+      //   moveFile(finalPath, deepPath, finalChooseType)
+      // }
+      // else {
+      //   // 找到符合所选格式文件
+      //   const oldName = `${oldPath}${link.value}${dir.name}`
+      //   const newName = `${finalPath}${link.value}${dir.name}`
 
-        if (fileWithChooseType(dir.name, finalChooseType)) {
-          try {
-            // TODO 增加逻辑
-            // 移动文件
-            fs.renameSync(oldName, newName)
-            fileCount.value += 1
-          }
-          catch (error) {
-            console.log('rename failed!!!', dir, error)
-            oldPathError.value = error as string
-          }
+      //   if (fileWithChooseType(dir.name!, finalChooseType)) {
+      //     try {
+      //       // 移动文件
+      //       await renameFile(oldName, newName)
+      //       fileCount.value += 1
+      //     }
+      //     catch (error) {
+      //       console.log('rename failed!!!', dir, error)
+      //       oldPathError.value = error as string
+      //     }
+      //   }
+      // }
+      // 更改逻辑：不再递归查询。改为『文件夹或者符合所选格式文件』移动
+      const oldName = `${oldPath}${link.value}${dir.name}`
+      const newName = `${finalPath}${link.value}${dir.name}`
+
+      if (fileWithChooseType(dir.name!, finalChooseType) || dir.children) {
+        try {
+          // 移动文件
+          await renameFile(oldName, newName)
+          fileCount.value += 1
+        }
+        catch (error) {
+          console.log('rename failed!!!', dir, error)
+          oldPathError.value = error as string
         }
       }
     }

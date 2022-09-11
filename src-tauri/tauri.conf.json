@@ -1,7 +1,7 @@
 {
     "package": {
         "productName": "powertools",
-        "version": "1.3.0"
+        "version": "0.1.0"
     },
     "build": {
         "distDir": "../dist",
@@ -18,7 +18,13 @@
             "active": true,
             "targets": "all",
             "identifier": "com.spada.powertools",
-            "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ],
             "resources": [],
             "externalBin": [],
             "copyright": "",
@@ -37,30 +43,19 @@
             "active": false
         },
         "allowlist": {
-            "shell": {
-                "all": true,
+            "all": true,
+            "fs": {
                 "scope": [
-                    {
-                        "name": "cmd",
-                        "cmd": "cmd",
-                        "args": ["/C", { "validator": "\\S+" }]
-                    },
-                    {
-                        "name": "pwsh",
-                        "cmd": "pwsh",
-                        "args": ["-Command", { "validator": "\\S+" }]
-                    }
+                    "$DOWNLOAD/*",
+                    "$HOME/*"
                 ]
-            },
-            "notification": {
-                "all": true
             }
         },
         "windows": [
             {
                 "title": "powertools",
-                "width": 1920,
-                "height": 1080,
+                "width": 1080,
+                "height": 720,
                 "resizable": true,
                 "fullscreen": false
             }

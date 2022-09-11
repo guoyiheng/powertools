@@ -42,6 +42,8 @@ export default defineConfig({
         {
           '@tauri-apps/api/app': ['getName', 'getVersion', 'getTauriVersion'],
           '@tauri-apps/api/shell': ['Command'],
+          '@tauri-apps/api/fs': ['createDir', 'readDir', 'renameFile'],
+          '@tauri-apps/api/os': ['type'],
           '@tauri-apps/api/notification': ['sendNotification', 'requestPermission', 'isPermissionGranted'],
         },
         {
