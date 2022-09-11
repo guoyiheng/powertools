@@ -96,7 +96,6 @@ function fileWithChooseType(name: string, types: string[]) {
 // 主要函数-处理文件移动
 async function moveFile(finalPath: string, oldPath: string, finalChooseType: string[]) {
   try {
-    // const downloadDirArr = fs.readdirSync(oldPath, { withFileTypes: true })
     const downloadDirArr = await readDir(oldPath, { recursive: false })
     for (const dir of downloadDirArr) {
       // 更改逻辑：不再递归查询。改为『文件夹或者符合所选格式文件』移动
