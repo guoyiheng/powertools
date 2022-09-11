@@ -99,28 +99,6 @@ async function moveFile(finalPath: string, oldPath: string, finalChooseType: str
     // const downloadDirArr = fs.readdirSync(oldPath, { withFileTypes: true })
     const downloadDirArr = await readDir(oldPath, { recursive: false })
     for (const dir of downloadDirArr) {
-      // if (dir.children) {
-      //   const deepPath = `${oldPath}${link.value}${dir.name}`
-      //   console.log('deepPath', deepPath)
-      //   moveFile(finalPath, deepPath, finalChooseType)
-      // }
-      // else {
-      //   // 找到符合所选格式文件
-      //   const oldName = `${oldPath}${link.value}${dir.name}`
-      //   const newName = `${finalPath}${link.value}${dir.name}`
-
-      //   if (fileWithChooseType(dir.name!, finalChooseType)) {
-      //     try {
-      //       // 移动文件
-      //       await renameFile(oldName, newName)
-      //       fileCount.value += 1
-      //     }
-      //     catch (error) {
-      //       console.log('rename failed!!!', dir, error)
-      //       oldPathError.value = error as string
-      //     }
-      //   }
-      // }
       // 更改逻辑：不再递归查询。改为『文件夹或者符合所选格式文件』移动
       const oldName = `${oldPath}${link.value}${dir.name}`
       const newName = `${finalPath}${link.value}${dir.name}`
