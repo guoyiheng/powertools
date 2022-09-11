@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "npx kill-port 5173 && vite",
+        "start": "vite",
         "dist": "vite build",
         "dev": "tauri dev",
         "build": "tauri build",
